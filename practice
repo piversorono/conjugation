@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spanish Conjugation Practice</title>
+</head>
+<body>
+    <h1>Spanish Conjugation Practice</h1>
+    <button type="button" onclick="generateQuestion()">Generate Question</button>
+    <br><br>
+    <h2 id="pronoun"></h2>
+    <h2 id="verb"></h2>
+    <br>
+    <input type="text" id="answer" placeholder="Enter conjugated verb">
+    <button type="button" onclick="checkAnswer()">Check Answer</button>
+    <br><br>
+    <p id="result"></p>
+
+    <script>
+        var pronouns = ['yo', 'tú', 'él', 'ella', 'usted', 'nosotros', 'nosotras', 'vosotros', 'vosotras', 'ellos', 'ellas', 'ustedes'];
+        var verbs = ['hablar', 'comer', 'vivir', 'trabajar', 'estudiar', 'cantar', 'bailar', 'correr', 'escribir', 'leer'];
+
+        function generateQuestion() {
+            var pronoun = pronouns[Math.floor(Math.random() * pronouns.length)];
+            var verb = verbs[Math.floor(Math.random() * verbs.length)];
+
+            document.getElementById('pronoun').innerHTML = 'Pronoun: ' + pronoun;
+            document.getElementById('verb').innerHTML = 'Verb: ' + verb;
+            document.getElementById('answer').value = '';
+            document.getElementById('result').innerHTML = '';
+        }
+
+        function checkAnswer() {
+            var pronoun = document.getElementById('pronoun').innerHTML.split(': ')[1].trim();
+            var verb = document.getElementById('verb').innerHTML.split(': ')[1].trim();
+            var answer = document.getElementById('answer').value.trim();
+            var expectedAnswer = conjugateVerb(pronoun, verb);
+
+            if (answer.toLowerCase() === expectedAnswer.toLowerCase()) {
+                document.getElementById('result').innerHTML = 'Correct!';
+            } else {
+                document.getElementById('result').innerHTML = 'Incorrect. Expected: ' + expectedAnswer;
+            }
+        }
+
+        function conjugateVerb(pronoun, verb) {
+            // Add your conjugation logic here
+            // This is a simplified example that assumes regular verbs
+            if (pronoun === 'yo') {
+                return verb + 'o';
+            } else if (pronoun === 'tú') {
+                return verb + 'as';
+            } else if (pronoun === 'él' || pronoun === 'ella' || pronoun === 'usted') {
+                return verb + 'a';
+            } else if (pronoun === 'nosotros' || pronoun === 'nosotras') {
+                return verb + 'amos';
+            } else if (pronoun === 'vosotros' || pronoun === 'vosotras') {
+                return verb + 'áis';
+            } else {
+                return verb + 'an';
+            }
+        }
+    </script>
+</body>
+</html>
